@@ -1,22 +1,21 @@
-# 150 Receitas Italianas — Área de Membros
+# Routes
 
-Área de membros com 150 receitas de pizza e 4 produtos extras (lasanhas, sobremesas, entradas e massas), liberados por senha.
+TanStack Start uses **file-based routing**. Every `.tsx` file in this directory
+defines a route. Do **not** create `src/pages/`, `src/routes/_app/index.tsx`, or
+`app/layout.tsx` — those are Next.js / Remix conventions. The only root layout
+is `src/routes/__root.tsx`.
 
-## Rodar no computador
+## Conventions
 
-```bash
-bun install
-bun run dev
-```
+| File | URL |
+| --- | --- |
+| `index.tsx` | `/` |
+| `about.tsx` | `/about` |
+| `users/index.tsx` | `/users` |
+| `users/$id.tsx` | `/users/:id` (dynamic — bare `$`, no curly braces) |
+| `posts/{-$category}.tsx` | `/posts/:category?` (optional segment) |
+| `files/$.tsx` | `/files/*` (splat — read via `_splat` param, never `*`) |
+| `_layout.tsx` | layout route (renders children via `<Outlet />`) |
+| `__root.tsx` | app shell — wraps every page; preserve `<Outlet />` |
 
-## Onde mexer
-
-- `src/data/recipes.ts` — as 150 receitas de pizza e os volumes
-- `src/data/extras.ts` — as 163 receitas dos produtos extras
-- `src/data/offers.ts` — preços, descontos, senhas e links de compra dos extras
-- `src/assets/` — fotos e capas (para trocar uma imagem, substitua o arquivo mantendo o nome)
-- `src/routes/` — as telas do site
-
-## Deploy
-
-O `netlify.toml` já está configurado: conecte o repositório ao Netlify e faça o deploy.
+`routeTree.gen.ts` is auto-generated. Don't edit it by hand.
