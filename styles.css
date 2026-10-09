@@ -1,0 +1,127 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Manrope", system-ui, sans-serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-basil: var(--basil);
+  --color-basil-foreground: var(--basil-foreground);
+  --color-wine: var(--wine);
+  --color-gold: var(--gold);
+  --color-ink: var(--ink);
+  --color-ink-foreground: var(--ink-foreground);
+  --color-cream: var(--cream);
+}
+
+:root {
+  --radius: 1rem;
+  --background: oklch(0.975 0.012 85);
+  --foreground: oklch(0.22 0.015 40);
+  --card: oklch(0.993 0.006 85);
+  --card-foreground: oklch(0.22 0.015 40);
+  --popover: oklch(0.993 0.006 85);
+  --popover-foreground: oklch(0.22 0.015 40);
+  --primary: oklch(0.52 0.19 27);
+  --primary-foreground: oklch(0.98 0.01 85);
+  --secondary: oklch(0.94 0.02 85);
+  --secondary-foreground: oklch(0.25 0.02 40);
+  --muted: oklch(0.945 0.015 85);
+  --muted-foreground: oklch(0.5 0.02 50);
+  --accent: oklch(0.93 0.03 80);
+  --accent-foreground: oklch(0.3 0.05 20);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.89 0.02 80);
+  --input: oklch(0.89 0.02 80);
+  --ring: oklch(0.52 0.19 27);
+  --basil: oklch(0.38 0.07 155);
+  --basil-foreground: oklch(0.97 0.01 85);
+  --wine: oklch(0.36 0.11 15);
+  --gold: oklch(0.74 0.11 80);
+  --ink: oklch(0.19 0.012 40);
+  --ink-foreground: oklch(0.95 0.015 85);
+  --cream: oklch(0.975 0.012 85);
+  --gradient-ink: linear-gradient(160deg, oklch(0.24 0.03 30), oklch(0.16 0.01 40));
+  --gradient-wine: linear-gradient(135deg, var(--wine), oklch(0.48 0.17 25));
+  --gradient-fade: linear-gradient(to top, oklch(0.15 0.01 40 / 0.92), oklch(0.15 0.01 40 / 0.2) 60%, transparent);
+  --shadow-soft: 0 1px 2px oklch(0.3 0.03 40 / 0.06), 0 12px 32px -12px oklch(0.3 0.05 30 / 0.18);
+  --shadow-lift: 0 2px 4px oklch(0.3 0.03 40 / 0.08), 0 24px 48px -16px oklch(0.35 0.08 25 / 0.3);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+}
+
+@utility shadow-soft {
+  box-shadow: var(--shadow-soft);
+}
+@utility shadow-lift {
+  box-shadow: var(--shadow-lift);
+}
+@utility bg-gradient-ink {
+  background-image: var(--gradient-ink);
+}
+@utility bg-gradient-wine {
+  background-image: var(--gradient-wine);
+}
+@utility bg-gradient-fade {
+  background-image: var(--gradient-fade);
+}
+@utility card-hover {
+  transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.35s;
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lift);
+  }
+}
+@utility page-enter {
+  animation: page-enter 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@utility tricolore {
+  background: linear-gradient(90deg, var(--basil) 0 33%, var(--cream) 33% 66%, var(--primary) 66%);
+}
+
+@keyframes page-enter {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}

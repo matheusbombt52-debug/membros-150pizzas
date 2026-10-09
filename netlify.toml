@@ -1,0 +1,16 @@
+# Netlify sets NETLIFY=true during builds, and vite.config.ts switches the
+# output to Netlify's format (static files in .output/public + a server function).
+[build]
+  command = "npm run build"
+  publish = ".output/public"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Static files (images, scripts, styles) are served directly; everything else
+# is rendered by the server function.
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/server"
+  status = 200
+  force = false
