@@ -1,0 +1,119 @@
+name: Organizar projeto
+
+# Coloca cada arquivo na pasta certa (o envio pelo site do GitHub tinha achatado tudo na raiz).
+# Roda sozinho ao criar este arquivo, e também pode ser rodado em Actions > Organizar projeto > Run workflow.
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/organizar-projeto.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  organizar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Mover arquivos para as pastas certas
+        run: |
+          set -e
+          mover() { if [ -f "$1" ]; then mkdir -p "$(dirname "$2")"; git mv "$1" "$2"; fi; }
+          mover 'favicon.ico' 'public/favicon.ico'
+          mover 'robots.txt' 'public/robots.txt'
+          mover 'b-massa.jpg' 'src/assets/b-massa.jpg'
+          mover 'b-molhos.jpg' 'src/assets/b-molhos.jpg'
+          mover 'f-entradas.jpg' 'src/assets/f-entradas.jpg'
+          mover 'f-lasanhas.jpg' 'src/assets/f-lasanhas.jpg'
+          mover 'f-sobremesas.jpg' 'src/assets/f-sobremesas.jpg'
+          mover 'hero-kitchen.jpg' 'src/assets/hero-kitchen.jpg'
+          mover 'p-entradas.jpg' 'src/assets/p-entradas.jpg'
+          mover 'p-lasanhas.jpg' 'src/assets/p-lasanhas.jpg'
+          mover 'p-massas-italianas.jpg' 'src/assets/p-massas-italianas.jpg'
+          mover 'p-sobremesas.jpg' 'src/assets/p-sobremesas.jpg'
+          mover 'r-artesanal.jpg' 'src/assets/r-artesanal.jpg'
+          mover 'r-banana.jpg' 'src/assets/r-banana.jpg'
+          mover 'r-calabresa.jpg' 'src/assets/r-calabresa.jpg'
+          mover 'r-cogumelos.jpg' 'src/assets/r-cogumelos.jpg'
+          mover 'r-doce.jpg' 'src/assets/r-doce.jpg'
+          mover 'r-especial.jpg' 'src/assets/r-especial.jpg'
+          mover 'r-frango.jpg' 'src/assets/r-frango.jpg'
+          mover 'r-margherita.jpg' 'src/assets/r-margherita.jpg'
+          mover 'r-massa.jpg' 'src/assets/r-massa.jpg'
+          mover 'r-queijos.jpg' 'src/assets/r-queijos.jpg'
+          mover 'r-veg.jpg' 'src/assets/r-veg.jpg'
+          mover 'AuthScreen.tsx' 'src/components/AuthScreen.tsx'
+          mover 'RecipeCard.tsx' 'src/components/RecipeCard.tsx'
+          mover 'Shell.tsx' 'src/components/Shell.tsx'
+          mover 'TotalBar.tsx' 'src/components/TotalBar.tsx'
+          mover 'UnlockCard.tsx' 'src/components/UnlockCard.tsx'
+          mover 'VolumeCard.tsx' 'src/components/VolumeCard.tsx'
+          mover 'dialog.tsx' 'src/components/ui/dialog.tsx'
+          mover 'sonner.tsx' 'src/components/ui/sonner.tsx'
+          mover 'extras.ts' 'src/data/extras.ts'
+          mover 'offers.ts' 'src/data/offers.ts'
+          mover 'recipes.ts' 'src/data/recipes.ts'
+          mover 'error-capture.ts' 'src/lib/error-capture.ts'
+          mover 'error-page.ts' 'src/lib/error-page.ts'
+          mover 'lovable-error-reporting.ts' 'src/lib/lovable-error-reporting.ts'
+          mover 'store.ts' 'src/lib/store.ts'
+          mover 'utils.ts' 'src/lib/utils.ts'
+          mover 'routeTree.gen.ts' 'src/routeTree.gen.ts'
+          mover 'router.tsx' 'src/router.tsx'
+          mover '__root.tsx' 'src/routes/__root.tsx'
+          mover 'cadastro.tsx' 'src/routes/cadastro.tsx'
+          mover 'index.tsx' 'src/routes/index.tsx'
+          mover 'membros.busca.tsx' 'src/routes/membros.busca.tsx'
+          mover 'membros.favoritos.tsx' 'src/routes/membros.favoritos.tsx'
+          mover 'membros.index.tsx' 'src/routes/membros.index.tsx'
+          mover 'membros.perfil.tsx' 'src/routes/membros.perfil.tsx'
+          mover 'membros.produtos.tsx' 'src/routes/membros.produtos.tsx'
+          mover 'membros.receita.$slug.tsx' 'src/routes/membros.receita.$slug.tsx'
+          mover 'membros.tsx' 'src/routes/membros.tsx'
+          mover 'membros.volumes.$volumeId.tsx' 'src/routes/membros.volumes.$volumeId.tsx'
+          mover 'membros.volumes.index.tsx' 'src/routes/membros.volumes.index.tsx'
+          mover 'server.ts' 'src/server.ts'
+          mover 'start.ts' 'src/start.ts'
+          mover 'styles.css' 'src/styles.css'
+          mover 'app-routing.test.tsx' 'src/test/app-routing.test.tsx'
+          mover 'recipes.test.ts' 'src/test/recipes.test.ts'
+          mover 'setup.ts' 'src/test/setup.ts'
+          if [ -f README.md ] && head -1 README.md | grep -q '^# Routes'; then mover 'README.md' 'src/routes/README.md'; fi
+          mover 'download' '.gitignore'
+          mover 'download (1)' '.prettierignore'
+          mover 'download (2)' '.prettierrc'
+          git rm -q -f --ignore-unmatch 'README (3).md'
+          if [ ! -f README.md ]; then cat > README.md <<'FIM_README'
+          # 150 Receitas Italianas — Área de Membros
+
+          Área de membros com 150 receitas de pizza e 4 produtos extras (lasanhas, sobremesas, entradas e massas), liberados por senha.
+
+          ## Rodar no computador
+
+          ```bash
+          bun install
+          bun run dev
+          ```
+
+          ## Onde mexer
+
+          - `src/data/recipes.ts` — as 150 receitas de pizza e os volumes
+          - `src/data/extras.ts` — as 163 receitas dos produtos extras
+          - `src/data/offers.ts` — preços, descontos, senhas e links de compra dos extras
+          - `src/assets/` — fotos e capas (para trocar uma imagem, substitua o arquivo mantendo o nome)
+          - `src/routes/` — as telas do site
+
+          ## Deploy
+
+          O `netlify.toml` já está configurado: conecte o repositório ao Netlify e faça o deploy.
+          FIM_README
+          fi
+      - name: Salvar no repositório
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet && echo "Nada para organizar." && exit 0
+          git commit -m "Organizar arquivos nas pastas corretas"
+          git push
